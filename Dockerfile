@@ -14,6 +14,9 @@ RUN /ros_entrypoint.sh rosdep install --from-paths src --ignore-src --rosdistro 
 RUN /ros_entrypoint.sh catkin_make install
 
 WORKDIR /root/catkin_ws/install/share/uwsim/data/scenes
+RUN mkdir -p ~/.uwsim/data
+RUN wget http://www.irs.uji.es/uwsim/files/data.tgz -O ~/.uwsim/UWSim-data.tgz && tar -zxvf ~/.uwsim/UWSim-data.tgz -C ~/.uwsim
+RUN rm ~/.uwsim/UWSim-data.tgz
 RUN chmod u+x installScene
 RUN ./installScene -s netsim_scenes.uws
 
