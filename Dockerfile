@@ -22,6 +22,8 @@ RUN ./installScene -s netsim_scenes.uws
 
 WORKDIR /root
 
+RUN echo "source catkin_ws/install/setup.bash" >> .bashrc
+
 RUN git clone --recursive https://github.com/dcentelles/dccomms_by_examples.git
 RUN mkdir dccomms_by_examples/build
 
