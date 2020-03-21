@@ -1,8 +1,8 @@
-FROM ros:melodic-ros-core-bionic
+FROM osrf/ros:melodic-desktop-full
+#FROM ros:melodic-ros-core-bionic
 
 WORKDIR /root
 RUN mkdir -p catkin_ws/src
-RUN cd catkin_ws/src
 
 WORKDIR /root/catkin_ws/src
 RUN git clone https://github.com/uji-ros-pkg/underwater_simulation.git
