@@ -1,4 +1,4 @@
-FROM osrf/ros:melodic-desktop-full
+FROM ros:melodic-ros-core-bionic
 
 WORKDIR /root
 RUN mkdir -p catkin_ws/src
@@ -7,11 +7,12 @@ RUN cd catkin_ws/src
 WORKDIR /root/catkin_ws/src
 RUN git clone https://github.com/uji-ros-pkg/underwater_simulation.git
 RUN git clone --recursive https://github.com/dcentelles/dccomms_ros_pkgs.git
+RUN git clone --recursive https://github.com/uji-ros-pkg/netsim_tracing_examples.git
 
 WORKDIR /root/catkin_ws/
 RUN apt-get update
 RUN /ros_entrypoint.sh rosdep install --from-paths src --ignore-src --rosdistro melodic -y
-RUN /ros_entrypoint.sh catkin_make install
+RUN /ros_entrypoint.sh catkin_make install -DCMAKE_BUILD_TYPE=Release
 
 WORKDIR /root/catkin_ws/install/share/uwsim/data/scenes
 RUN mkdir -p ~/.uwsim/data
