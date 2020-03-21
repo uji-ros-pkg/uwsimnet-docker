@@ -1,6 +1,6 @@
 #!/bin/bash
 
-xhost +local:root_
+xhost +local:root
 
 scriptPath=$(realpath $0)
 scriptDir=$(dirname $scriptPath)/
