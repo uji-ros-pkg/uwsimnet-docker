@@ -22,9 +22,9 @@ Now you can install the `nvidia-docker2` package and reload the Docker daemon co
 sudo apt-get install nvidia-docker2
 sudo pkill -SIGHUP dockerd
 ```
-Finally use the `run_melodic_image.bash` script to create and start the first docker container.
+Finally use the `run_image.bash` script to create and start the first docker container.
 ```bash
-chmod u+x run_melodic_image.bash
-./run_melodic_image.bash uwsimnet-image
+chmod u+x run_image.bash
+./run_image.bash uwsimnet-image
 ```
 This steps have been based on the documentation available in [ros-docker-with-hardware-acceleration](http://wiki.ros.org/docker/Tutorials/Hardware%20Acceleration)
