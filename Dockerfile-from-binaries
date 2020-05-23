@@ -1,0 +1,38 @@
+FROM ros:melodic-ros-core-bionic
+
+WORKDIR /root
+RUN apt-get update
+RUN apt-get install ros-melodic-uwsim -y
+
+RUN mkdir -p catkin_ws/src
+WORKDIR /root/catkin_ws/src
+RUN git clone --recursive https://github.com/uji-ros-pkg/netsim_tracing_examples.git
+
+WORKDIR /root/catkin_ws/
+RUN /ros_entrypoint.sh rosdep install --from-paths src --ignore-src --rosdistro melodic -y
+RUN /ros_entrypoint.sh catkin_make install -DCMAKE_BUILD_TYPE=Release
+
+WORKDIR /opt/ros/melodic/share/uwsim/data/scenes
+RUN mkdir -p ~/.uwsim/data
+RUN wget http://www.irs.uji.es/uwsim/files/data.tgz -O ~/.uwsim/UWSim-data.tgz && tar -zxvf ~/.uwsim/UWSim-data.tgz -C ~/.uwsim
+RUN rm ~/.uwsim/UWSim-data.tgz
+RUN chmod u+x installScene
+RUN ./installScene -s netsim_scenes.uws
+
+WORKDIR /root
+RUN git clone --recursive https://github.com/dcentelles/dccomms_by_examples.git
+RUN mkdir dccomms_by_examples/build
+
+WORKDIR dccomms_by_examples/build
+
+RUN cmake ..
+RUN make
+
+CMD ["bash"]
+
+# nvidia-container-runtime
+ENV NVIDIA_VISIBLE_DEVICES \
+    ${NVIDIA_VISIBLE_DEVICES:-all}
+ENV NVIDIA_DRIVER_CAPABILITIES \
+    ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
+
