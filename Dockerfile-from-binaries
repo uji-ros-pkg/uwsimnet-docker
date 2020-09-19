@@ -10,6 +10,8 @@ WORKDIR /root/catkin_ws/src
 RUN git clone --recursive https://github.com/uji-ros-pkg/netsim_tracing_examples.git
 
 WORKDIR /root/catkin_ws/
+RUN rosdep init
+RUN rosdep update
 RUN /ros_entrypoint.sh rosdep install --from-paths src --ignore-src --rosdistro melodic -y
 RUN /ros_entrypoint.sh catkin_make install -DCMAKE_BUILD_TYPE=Release
 
