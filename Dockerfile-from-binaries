@@ -1,8 +1,7 @@
-FROM ros:melodic-ros-core-bionic
+FROM ros:melodic-ros-base-bionic
 
 WORKDIR /root
 RUN apt-get update
-RUN apt-get install python-rosdep
 RUN apt-get install ros-melodic-uwsim -y
 
 RUN mkdir -p catkin_ws/src
@@ -10,8 +9,6 @@ WORKDIR /root/catkin_ws/src
 RUN git clone --recursive https://github.com/uji-ros-pkg/netsim_tracing_examples.git
 
 WORKDIR /root/catkin_ws/
-RUN rosdep init
-RUN rosdep update
 RUN /ros_entrypoint.sh rosdep install --from-paths src --ignore-src --rosdistro melodic -y
 RUN /ros_entrypoint.sh catkin_make install -DCMAKE_BUILD_TYPE=Release
 
