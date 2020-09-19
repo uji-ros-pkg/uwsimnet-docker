@@ -2,6 +2,7 @@ FROM ros:melodic-ros-core-bionic
 
 WORKDIR /root
 RUN apt-get update
+RUN apt-get install python-rosdep
 RUN apt-get install ros-melodic-uwsim -y
 
 RUN mkdir -p catkin_ws/src
