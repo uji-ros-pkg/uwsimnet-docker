@@ -1,4 +1,4 @@
-FROM ros:melodic-ros-core-bionic
+FROM ros:melodic-ros-base-bionic
 
 WORKDIR /root
 RUN mkdir -p catkin_ws/src
